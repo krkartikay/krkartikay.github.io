@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+pre code.hljs {
+  background: inherit;
+  padding: 0 !important;
+  overflow: visible !important;
+}
