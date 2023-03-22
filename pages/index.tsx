@@ -19,7 +19,7 @@ export default function Home({ allNotesData }: { allNotesData: Note[] }) {
       <div>
         <h1>Hi!</h1>
         <p>
-          I'm a software engineer. I am currently working for Google.
+          I&apos;m a software engineer. I am currently working for Google.
         </p>
         <p>
           I like to code in my free time.
