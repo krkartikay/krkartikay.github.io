@@ -5,7 +5,7 @@ date: '2023-03-21'
 
 # Quotes
 
-# Philosophy
+## Philosophy
 
 > Absorb what is useful,  
 > Reject what is useless,  

@@ -27,13 +27,17 @@ export default function NotePage({ noteData }: { noteData: Note }) {
   return (
     <Layout>
       <Head>
-        <title></title>
+        <title>{noteData.metadata.title}</title>
       </Head>
       <br />
       <h1>{noteData.metadata.title}</h1>
       <p>{noteData.metadata.date}</p>
       <br />
-      <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
+      <div className='container mx-auto border border-red-300'>
+        <div className='prose'>
+          <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
+        </div>
+      </div>
     </Layout>
   );
 }
