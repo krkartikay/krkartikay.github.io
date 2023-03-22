@@ -22,7 +22,9 @@ export default function Layout({ allNotesData, children }: PropsWithChildren<{ a
       {/* Sidebar */}
       <aside className='sm:w-1/4 text-stone-500'>
         <div className='max-w-xs mx-auto py-8'>
-          <h2 className='p-8 text-lg text-stone-600'>Notes</h2>
+          <Link href={`/`}>
+            <h2 className='p-8 text-lg text-stone-600 hover:bg-stone-100'>Notes</h2>
+          </Link>
           <ul className='list-disc pl-8'>
             {allNotesData.map(({ id, metadata }) => (
               <Link href={`/notes/${id}`} key={id}>

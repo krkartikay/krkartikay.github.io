@@ -29,6 +29,9 @@ export default function Home({ allNotesData }: { allNotesData: Note[] }) {
           <Link href="https://github.com/krkartikay">github profile</Link>,
           and some of my notes on this website.
         </p>
+        <p>
+          Feel free to reach me at <a href="mailto:krkartikay@gmail.com">krkartikay@gmail.com</a>.
+        </p>
       </div>
     </Layout>
   )
