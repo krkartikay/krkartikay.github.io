@@ -122,6 +122,5 @@ export function getAllNotesIds(base_directory? : string): { params: { note_id: s
       result.push({params: {note_id: directory.base_name + '__' + internal_noteId.params.note_id}})
     }
   }
-  console.log(result);
   return result;
 }
