@@ -27,8 +27,6 @@ export async function getStaticProps({ params }: NoteParams) {
 }
 
 export default function NotePage({ note_id, noteData, allNotesIndex }: { note_id: string, noteData: Note, allNotesIndex: NotesIndex }) {
-  console.log(note_id);
-
   return (
     <Layout allNotesIndex={allNotesIndex} note_id={note_id}>
       <Head>
