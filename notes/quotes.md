@@ -3,8 +3,6 @@ title: 'Quotes'
 date: '2023-03-21'
 ---
 
-# Quotes
-
 ## Philosophy
 
 > Absorb what is useful,  
