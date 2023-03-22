@@ -17,7 +17,7 @@ export async function getStaticProps() {
 export default function Home({ allNotesData }: { allNotesData: Note[] }) {
   return (
     <>
-      <Image src="/pfp_blank.png" alt="NextJS logo" width={100} height={100}></Image>
+      <Image src="/pfp_blank.png" alt="Profile pic" width={100} height={100} className="rounded-full"></Image>
       <h1>krkartikay&apos;s Notes</h1>
       <section>
         <h2>Index</h2>
