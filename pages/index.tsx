@@ -15,11 +15,15 @@ export async function getStaticProps() {
 
 export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
   return (
-    <Layout allNotesIndex={allNotesIndex}>
-      <div>
+    <Layout allNotesIndex={allNotesIndex} note_id=''>
+      <Head>
+        <title>krkartikay's notes</title>
+      </Head>
+      <div className='prose prose-stone'>
         <h1>Hi!</h1>
+        <h2>I&apos;m Kartikay.</h2>
         <p>
-          I&apos;m a software engineer. I am currently working for Google.
+          I&apos;m a software engineer. I&apos;m currently working for Google.
         </p>
         <p>
           I like to code in my free time.

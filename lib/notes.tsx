@@ -65,29 +65,44 @@ export function getNotesIndex(directory_path?: string): NotesIndex {
 export async function getNoteData(note_id: string) : Promise<Note> {
   const note_path = note_id.replace(/__/g,"/");
   const note_full_path = path.join(notesDirectory, note_path);
-  if (fs.existsSync(note_full_path) && fs.lstatSync(note_full_path).isDirectory()) {
-    return {
-      metadata: {title: note_id.substring(note_id.lastIndexOf("/")).replace(/__/g, "/"), date: ''},
-      content: '' // TODO: generate index here
-    }
-  }
+  const note_full_path_dir = path.join(notesDirectory, note_path).replace(/\/index$/, "");
   const note_full_path_with_md = note_full_path + '.md';
-  const fileContents = fs.readFileSync(note_full_path_with_md, 'utf8');
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents);
-  const metadata = matterResult.data as NotesMetaData;
-
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
+  if (fs.existsSync(note_full_path_with_md)) {
+    const fileContents = fs.readFileSync(note_full_path_with_md, 'utf8');
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+    const metadata = matterResult.data as NotesMetaData;
+  
+    // Use remark to convert markdown into HTML string
+    const processedContent = await remark()
     .use(html)
     .process(matterResult.content);
-  const content = processedContent.toString();
-
-  // Combine the data with the id
+    const content = processedContent.toString();
+    
+    // Combine the data with the id
+    return {
+      metadata,
+      content,
+    };
+  }
+  if (fs.existsSync(note_full_path_dir) && fs.lstatSync(note_full_path_dir).isDirectory()) {
+    const filenames = fs.readdirSync(note_full_path_dir);
+    let content = 'Pages under this topic:';
+    for (const filename of filenames) {
+      const note_id_stripped = note_id.replace(/__index$/,'');
+      const filename_stripped = filename.replace(/.md$/,'');
+      content += `<li><a href='/notes/${note_id_stripped}__${filename_stripped}'>${filename_stripped}</a></li>`
+    }
+    return {
+      metadata: {title: note_id.substring(note_id.lastIndexOf("/")).replace(/__/g, " / ").replace(/\/ index$/, ""), date: ''},
+      content: content
+    }
+  }
+  // UNEXPECTED!
   return {
-    metadata,
-    content,
-  };
+    metadata: {title: 'Not found! 404', date: ''},
+    content: 'The page was not found!'
+  }
 }
 
 // returns all possible 'note_ids' for SSR
@@ -101,11 +116,12 @@ export function getAllNotesIds(base_directory? : string): { params: { note_id: s
     result.push({params: {note_id: note_data.id}});
   }
   for (const directory of notesIndex.directories) {
-    result.push({params: {note_id: directory.base_name}})
+    result.push({params: {note_id: directory.base_name + '__' + 'index'}})
     const internal_noteIds = getAllNotesIds(path.join(base_directory, directory.base_name));
     for (const internal_noteId of internal_noteIds) {
       result.push({params: {note_id: directory.base_name + '__' + internal_noteId.params.note_id}})
     }
   }
+  console.log(result);
   return result;
 }

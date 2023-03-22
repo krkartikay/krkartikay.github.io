@@ -12,7 +12,7 @@ function toTitleCase(str: string): string {
   );
 }
 
-function NotesTree({ allNotesIndex, prefix }: { allNotesIndex: NotesIndex, prefix?: string }) {
+function NotesTree({ allNotesIndex, prefix, current_note_id }: { allNotesIndex: NotesIndex, prefix?: string, current_note_id : string }) {
   if (!prefix) {
     prefix = ''
   }
@@ -22,7 +22,7 @@ function NotesTree({ allNotesIndex, prefix }: { allNotesIndex: NotesIndex, prefi
       continue;
     const note_link =
       <Link href={`/notes/${prefix}${note.id}`} key={note.id}>
-        <li className='py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside'>
+        <li className={`py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside ${(prefix+note.id == current_note_id) ? 'bg-stone-50 font-bold' : ''}`}>
           {note.metadata.title}
         </li>
       </Link>
@@ -31,11 +31,11 @@ function NotesTree({ allNotesIndex, prefix }: { allNotesIndex: NotesIndex, prefi
   for (const directory of allNotesIndex.directories) {
     const page_link = <>
       <Link href={`/notes/${prefix}${directory.base_name}__index`} key={directory.base_name}>
-        <li className='py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside'>
+        <li className={`py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside ${(prefix+directory.base_name+'__index' == current_note_id) ? 'bg-stone-50 font-bold' : ''}`}>
           {toTitleCase(directory.base_name)}
         </li>
       </Link>
-      <NotesTree allNotesIndex={directory} prefix={prefix + directory.base_name + '__'}></NotesTree>
+      <NotesTree allNotesIndex={directory} prefix={prefix + directory.base_name + '__'} current_note_id={current_note_id}></NotesTree>
     </>
     all_pages.push({title: toTitleCase(directory.base_name), page: page_link});
   }
@@ -47,7 +47,7 @@ function NotesTree({ allNotesIndex, prefix }: { allNotesIndex: NotesIndex, prefi
   </>;
 }
 
-export default function Layout({ allNotesIndex, children }: PropsWithChildren<{ allNotesIndex: NotesIndex }>) {
+export default function Layout({ allNotesIndex, note_id, children }: PropsWithChildren<{ allNotesIndex: NotesIndex, note_id: string }>) {
   return <div>
     <nav className='md:sticky md:top-0 md:z-40 shadow-sm p-2 bg-white'>
       <div className='flex items-center'>
@@ -67,17 +67,15 @@ export default function Layout({ allNotesIndex, children }: PropsWithChildren<{ 
       <aside className='sm:w-1/4 text-stone-500'>
         <div className='max-w-xs mx-auto py-8'>
           <Link href={`/`}>
-            <h2 className='p-8 text-lg text-stone-600 hover:bg-stone-100'>Notes</h2>
+            <h2 className={`p-8 text-lg text-stone-600 hover:bg-stone-100 ${(note_id == '') ? 'font-bold' : ''}`}>Notes</h2>
           </Link>
-          <NotesTree allNotesIndex={allNotesIndex}></NotesTree>
+          <NotesTree allNotesIndex={allNotesIndex} current_note_id={note_id}></NotesTree>
         </div>
       </aside>
       {/* Main Content */}
       <main className='sm:w-3/4'>
         <div className='p-8 md:p-16'>
-          <div className="prose prose-stone">
             {children}
-          </div>
         </div>
       </main>
     </div>

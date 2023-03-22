@@ -19,25 +19,31 @@ export async function getStaticProps({ params }: NoteParams) {
   const allNotesIndex = getNotesIndex();
   return {
     props: {
+      note_id: params.note_id,
       noteData,
-      allNotesIndex
+      allNotesIndex,
     }
   }
 }
 
-export default function NotePage({ noteData, allNotesIndex }: { noteData: Note, allNotesIndex: NotesIndex }) {
+export default function NotePage({ note_id, noteData, allNotesIndex }: { note_id: string, noteData: Note, allNotesIndex: NotesIndex }) {
+  console.log(note_id);
+
   return (
-    <Layout allNotesIndex={allNotesIndex}>
+    <Layout allNotesIndex={allNotesIndex} note_id={note_id}>
       <Head>
-        <title>{noteData.metadata.title}</title>
+        <title>{noteData.metadata.title ? noteData.metadata.title : note_id.replace(/__/g, " / ")}</title>
       </Head>
       <br />
-      <h1>{noteData.metadata.title}</h1>
-      <p>{noteData.metadata.date}</p>
-      <br/>
-        <div className='prose'>
-          <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
-        </div>
+      <h1 className='text-4xl'>{noteData.metadata.title}</h1>
+      {
+        noteData.metadata.date ?
+          <p className='text-stone-400'>{noteData.metadata.date}</p>
+          : <br/>
+      }
+      <div className='prose prose-stone'>
+        <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
+      </div>
     </Layout>
   );
 }
