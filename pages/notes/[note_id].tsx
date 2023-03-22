@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import { getAllNotesIds, getNoteData, Note } from '@/lib/notes';
+import { getAllNotesIds, getNoteData, getSortedNotesData, Note } from '@/lib/notes';
 import Head from 'next/head';
 
 interface NoteParams {
@@ -16,16 +16,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: NoteParams) {
   const noteData = await getNoteData(params.note_id);
+  const allNotesData = getSortedNotesData();
   return {
     props: {
-      noteData
+      noteData,
+      allNotesData
     }
   }
 }
 
-export default function NotePage({ noteData }: { noteData: Note }) {
+export default function NotePage({ noteData, allNotesData }: { noteData: Note, allNotesData: Note[] }) {
   return (
-    <Layout>
+    <Layout allNotesData={allNotesData}>
       <Head>
         <title>{noteData.metadata.title}</title>
       </Head>
@@ -33,11 +35,9 @@ export default function NotePage({ noteData }: { noteData: Note }) {
       <h1>{noteData.metadata.title}</h1>
       <p>{noteData.metadata.date}</p>
       <br />
-      <div className='container mx-auto border border-red-300'>
         <div className='prose'>
           <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
         </div>
-      </div>
     </Layout>
   );
 }
