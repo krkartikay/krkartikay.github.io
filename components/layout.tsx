@@ -1,9 +1,53 @@
 import Link from 'next/link';
 import Image from 'next/image'
-import { PropsWithChildren } from "react";
-import { Note } from '@/lib/notes';
+import { PropsWithChildren, ReactElement } from "react";
+import { Note, NotesIndex } from '@/lib/notes';
 
-export default function Layout({ allNotesData, children }: PropsWithChildren<{ allNotesData: Note[] }>) {
+function toTitleCase(str: string): string {
+  return str.replace(
+    /\w\S*/g,
+    function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
+function NotesTree({ allNotesIndex, prefix }: { allNotesIndex: NotesIndex, prefix?: string }) {
+  if (!prefix) {
+    prefix = ''
+  }
+  const all_pages: {title: string, page: ReactElement}[] = [];
+  for (const note of allNotesIndex.notes_data){
+    if (note.id == 'index')
+      continue;
+    const note_link =
+      <Link href={`/notes/${prefix}${note.id}`} key={note.id}>
+        <li className='py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside'>
+          {note.metadata.title}
+        </li>
+      </Link>
+    all_pages.push({title: note.metadata.title, page: note_link});
+  }
+  for (const directory of allNotesIndex.directories) {
+    const page_link = <>
+      <Link href={`/notes/${prefix}${directory.base_name}__index`} key={directory.base_name}>
+        <li className='py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside'>
+          {toTitleCase(directory.base_name)}
+        </li>
+      </Link>
+      <NotesTree allNotesIndex={directory} prefix={prefix + directory.base_name + '__'}></NotesTree>
+    </>
+    all_pages.push({title: toTitleCase(directory.base_name), page: page_link});
+  }
+  all_pages.sort((a, b) => (a.title < b.title) ? -1: (a.title == b.title ? 0 : 1))
+  return <>
+    <ul className='list-disc pl-8'>
+      {all_pages.map(({title, page}) => page)}
+    </ul>
+  </>;
+}
+
+export default function Layout({ allNotesIndex, children }: PropsWithChildren<{ allNotesIndex: NotesIndex }>) {
   return <div>
     <nav className='md:sticky md:top-0 md:z-40 shadow-sm p-2 bg-white'>
       <div className='flex items-center'>
@@ -25,15 +69,7 @@ export default function Layout({ allNotesData, children }: PropsWithChildren<{ a
           <Link href={`/`}>
             <h2 className='p-8 text-lg text-stone-600 hover:bg-stone-100'>Notes</h2>
           </Link>
-          <ul className='list-disc pl-8'>
-            {allNotesData.map(({ id, metadata }) => (
-              <Link href={`/notes/${id}`} key={id}>
-                <li className='py-2 pl-2 hover:bg-stone-100 hover:text-stone-600 list-inside'>
-                  {metadata.title}
-                </li>
-              </Link>
-            ))}
-          </ul>
+          <NotesTree allNotesIndex={allNotesIndex}></NotesTree>
         </div>
       </aside>
       {/* Main Content */}

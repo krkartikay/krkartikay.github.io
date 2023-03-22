@@ -6,48 +6,73 @@ import html from 'remark-html';
 
 const notesDirectory = path.join(process.cwd(), 'notes');
 
+export interface NotesIndex {
+  base_name: string,  // base name of this directory, e.g. 'algebra'
+  full_path: string,  // full path from current director, e.g. './notes/math/algebra'`
+  notes_data: {
+    id: string,       // note base names without '.md', e.g. 'clifford_algebra'
+    metadata: NotesMetaData // from within the notes file, front matter
+  }[],
+  directories: NotesIndex[] // directories within this one
+}
+
 export interface NotesMetaData {
   title: string,
   date: string,
 }
 
 export interface Note {
-  id: string,
   metadata: NotesMetaData,
   content: string,
 }
 
-export function getSortedNotesData() : Note[] {
+export function getNotesIndex(directory_path?: string): NotesIndex {
+  if (!directory_path) {
+    directory_path = notesDirectory;
+  }
   // Get file names under /notes
-  const fileNames = fs.readdirSync(notesDirectory);
-  const allNotesData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
-
-    // Read markdown file as string
-    const fullPath = path.join(notesDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    // Use gray-matter to parse the note metadata section
-    const metadata = matter(fileContents).data as NotesMetaData;
-
-    // Combine the data with the id
-    return {id, metadata, content:""};
-  });
-  // Sort notes by date
-  return allNotesData.sort((a, b) => {
-    if (a.metadata.date < b.metadata.date) {
-      return 1;
+  const base_name = path.basename(directory_path);
+  const fileNames = fs.readdirSync(directory_path);
+  const notesIndex: NotesIndex = {
+    base_name: base_name,
+    full_path: directory_path,
+    notes_data: [],
+    directories: []
+  };
+  for (const fileName of fileNames) {
+    const fullPath = path.join(directory_path, fileName);
+    if (fs.lstatSync(fullPath).isDirectory()) {
+      // recurse into the directory
+      notesIndex.directories.push(getNotesIndex(path.join(directory_path, fileName)))
     } else {
-      return -1;
+      // Remove ".md" from file name to get id
+      const path = fileName.replace(/\.md$/, '');
+
+      // Read markdown file as string
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+      // Use gray-matter to parse the note metadata section
+      const metadata = matter(fileContents).data as NotesMetaData;
+
+      notesIndex.notes_data.push({
+        id: path, metadata: metadata
+      })
     }
-  });
+  }
+  return notesIndex;
 }
 
-export async function getNoteData(id: string) {
-  const fullPath = path.join(notesDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-
+export async function getNoteData(note_id: string) : Promise<Note> {
+  const note_path = note_id.replace(/__/g,"/");
+  const note_full_path = path.join(notesDirectory, note_path);
+  if (fs.existsSync(note_full_path) && fs.lstatSync(note_full_path).isDirectory()) {
+    return {
+      metadata: {title: note_id.substring(note_id.lastIndexOf("/")).replace(/__/g, "/"), date: ''},
+      content: '' // TODO: generate index here
+    }
+  }
+  const note_full_path_with_md = note_full_path + '.md';
+  const fileContents = fs.readFileSync(note_full_path_with_md, 'utf8');
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
   const metadata = matterResult.data as NotesMetaData;
@@ -60,33 +85,27 @@ export async function getNoteData(id: string) {
 
   // Combine the data with the id
   return {
-    id,
     metadata,
     content,
   };
 }
 
-export function getAllNotesIds() {
-  const fileNames = fs.readdirSync(notesDirectory);
-
-  // Returns an array that looks like this:
-  // [
-  //   {
-  //     params: {
-  //       note_id: 'ssg-ssr'
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       note_id: 'pre-rendering'
-  //     }
-  //   }
-  // ]
-  return fileNames.map((fileName: string) => {
-    return {
-      params: {
-        note_id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+// returns all possible 'note_ids' for SSR
+export function getAllNotesIds(base_directory? : string): { params: { note_id: string } }[] {
+  if (!base_directory) {
+    base_directory = notesDirectory;
+  }
+  const notesIndex = getNotesIndex(base_directory); // get index at root
+  const result: { params: { note_id: string } }[] = [];
+  for (const note_data of notesIndex.notes_data) {
+    result.push({params: {note_id: note_data.id}});
+  }
+  for (const directory of notesIndex.directories) {
+    result.push({params: {note_id: directory.base_name}})
+    const internal_noteIds = getAllNotesIds(path.join(base_directory, directory.base_name));
+    for (const internal_noteId of internal_noteIds) {
+      result.push({params: {note_id: directory.base_name + '__' + internal_noteId.params.note_id}})
+    }
+  }
+  return result;
 }

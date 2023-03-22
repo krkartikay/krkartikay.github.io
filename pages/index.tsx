@@ -1,21 +1,21 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { getSortedNotesData, Note } from '@/lib/notes';
+import { getNotesIndex, Note, NotesIndex } from '@/lib/notes';
 import Link from 'next/link';
 import Layout from '@/components/layout';
 
 export async function getStaticProps() {
-  const allNotesData = getSortedNotesData();
+  const allNotesIndex = getNotesIndex();
   return {
     props: {
-      allNotesData,
+      allNotesIndex,
     },
   };
 }
 
-export default function Home({ allNotesData }: { allNotesData: Note[] }) {
+export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
   return (
-    <Layout allNotesData={allNotesData}>
+    <Layout allNotesIndex={allNotesIndex}>
       <div>
         <h1>Hi!</h1>
         <p>
