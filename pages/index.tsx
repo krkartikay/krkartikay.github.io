@@ -34,7 +34,7 @@ export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
           and some of my notes on this website.
         </p>
         <p>
-          You can contact me at <a href="mailto:krkartikay@gmail.com">krkartikay@gmail.com</a>.
+          Feel free to contact me at <a href="mailto:krkartikay@gmail.com">krkartikay@gmail.com</a>.
         </p>
       </div>
     </Layout>
