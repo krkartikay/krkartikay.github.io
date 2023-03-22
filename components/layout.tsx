@@ -65,7 +65,7 @@ export default function Layout({ allNotesIndex, note_id, children }: PropsWithCh
     <div className='flex flex-row flex-wrap'>
       {/* Sidebar */}
       <aside className='sm:w-1/4 text-stone-500'>
-        <div className='max-w-xs mx-auto py-8'>
+        <div className='max-w-sm mx-auto py-8'>
           <Link href={`/`}>
             <h2 className={`p-8 text-lg text-stone-600 hover:bg-stone-100 ${(note_id == '') ? 'font-bold' : ''}`}>Notes</h2>
           </Link>
