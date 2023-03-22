@@ -17,7 +17,7 @@ export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
   return (
     <Layout allNotesIndex={allNotesIndex} note_id=''>
       <Head>
-        <title>krkartikay's notes</title>
+        <title>krkartikay&apos;s notes</title>
       </Head>
       <div className='prose prose-stone'>
         <h1>Hi!</h1>
@@ -34,7 +34,7 @@ export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
           and some of my notes on this website.
         </p>
         <p>
-          Feel free to reach me at <a href="mailto:krkartikay@gmail.com">krkartikay@gmail.com</a>.
+          You can contact me at <a href="mailto:krkartikay@gmail.com">krkartikay@gmail.com</a>.
         </p>
       </div>
     </Layout>
