@@ -90,8 +90,13 @@ export async function getNoteData(note_id: string) : Promise<Note> {
     let content = 'Pages under this topic:';
     for (const filename of filenames) {
       const note_id_stripped = note_id.replace(/__index$/,'');
-      const filename_stripped = filename.replace(/.md$/,'');
-      content += `<li><a href='/notes/${note_id_stripped}__${filename_stripped}'>${filename_stripped}</a></li>`
+      if (filename.endsWith('.md')) {
+        const filename_stripped = filename.replace(/.md$/,'');
+        content += `<li><a href='/notes/${note_id_stripped}__${filename_stripped}'>${filename_stripped}</a></li>`
+      } else {
+        const filename_stripped = filename.replace(/.md$/,'');
+        content += `<li><a href='/notes/${note_id_stripped}__${filename_stripped}__index'>${filename_stripped}</a></li>`
+      }
     }
     return {
       metadata: {title: note_id.substring(note_id.lastIndexOf("/")).replace(/__/g, " / ").replace(/\/ index$/, ""), date: ''},
