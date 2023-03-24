@@ -26,7 +26,7 @@ export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
           I&apos;m a software engineer. I&apos;m currently working for Google.
         </p>
         <p>
-          I like to code in my free time.
+          I like to code, read books and study in my free time.
         </p>
         <p>
           You can find some of my projects on my {` `}
