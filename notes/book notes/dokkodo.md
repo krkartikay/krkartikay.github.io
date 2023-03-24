@@ -27,3 +27,5 @@ date: '2023-03-23'
 19. **Respect Buddha and the gods without counting on their help.**
 20. **You may abandon your body but you must preserve your honor.**
 21. **Never Stray from the Way.** - Be unshakeable from the set of principles by which you live your life.
+
+![](/musashi.jpeg)
