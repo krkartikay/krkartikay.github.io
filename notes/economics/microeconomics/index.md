@@ -27,6 +27,8 @@ date: '2023-03-23'
   ![market eqm at intersection of supply and demand curve](/notes/econ-market-eqm.png)
 - Supply and Demand curve shifts due to shocks
   - Market absorbs excess supply and excess demand by shifting equilibrium.
+  - Price changes in one market can affect another.
+    - General equilibrium includes feedback effects.
 - Government Intervention in Markets.
   - Eg. Minimum wage, Price ceilings.
   - May cause inefficiences, e.g. unemployment, shortages.
