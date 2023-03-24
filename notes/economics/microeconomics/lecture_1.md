@@ -3,7 +3,9 @@ title: 'Lecture 1'
 date: '2023-03-23'
 ---
 
-## MIT OCW 14.01SC
+## MIT OCW 14.01SC L1 - Introduction to Microeconomics
+
+[MIT OCW 14.01SC - Lec 1 (Youtube)](https://www.youtube.com/watch?v=Vss3nofHpZI&list=PL61533C166E8B0028&index=1)
 
 - Economics is about scarcity, tradeoffs, resouce optimsation.
   - It is called the *'Dismal science'*.
