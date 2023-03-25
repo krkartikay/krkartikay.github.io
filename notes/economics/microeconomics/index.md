@@ -40,3 +40,6 @@ date: '2023-03-23'
       - Equity - (percieved?) fairness.
   - Direct effects (what voters see) and indirect effects (what economists see).
   - Secondary markets can arise to evade government regulation.
+
+### [L2. - Elasticity](economics__microeconomics__lecture_3)
+
