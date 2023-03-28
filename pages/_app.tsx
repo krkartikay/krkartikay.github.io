@@ -8,8 +8,8 @@ export default function App({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
   }
   return <>
-    <Script async src="https://www.googletagmanager.com/gtag/js?id=G-927VSS5MXP"></Script>
-    <Script>
+    <Script async src="https://www.googletagmanager.com/gtag/js?id=G-927VSS5MXP" id='gtagmgr'></Script>
+    <Script id='gtag'>
       {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());

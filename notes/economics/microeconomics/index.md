@@ -41,5 +41,6 @@ date: '2023-03-23'
   - Direct effects (what voters see) and indirect effects (what economists see).
   - Secondary markets can arise to evade government regulation.
 
-### [L2. - Elasticity](economics__microeconomics__lecture_3)
+### [L3. - Elasticity](economics__microeconomics__lecture_3)
+
 
