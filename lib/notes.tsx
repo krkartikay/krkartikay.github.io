@@ -45,6 +45,10 @@ export function getNotesIndex(directory_path?: string): NotesIndex {
       // recurse into the directory
       notesIndex.directories.push(getNotesIndex(path.join(directory_path, fileName)))
     } else {
+      if (!fileName.endsWith('.md')) {
+        continue;
+      }
+
       // Remove ".md" from file name to get id
       const path = fileName.replace(/\.md$/, '');
 
