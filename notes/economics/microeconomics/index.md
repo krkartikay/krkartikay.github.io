@@ -43,4 +43,29 @@ date: '2023-03-23'
 
 ### [L3. - Elasticity](economics__microeconomics__lecture_3)
 
-
+- `Elasiticity of demand (\epsilon_d) = (dQ/Q)/(dP/P) = (dQ/dP)*(P/Q)`. (`units: dimensionless, ratio of %s`) (should be negative) (percent change in qty / percent change in price)
+  - Perfectly Inelastic Demand: `elasticity = 0`.
+  - Perfectly Elastic Demand: `elasticity = -infinite`.
+- Perfectly Inelastic Demand
+  - Demand does not change with price change
+  - Straight vertical line on price-qty diagram.
+    ![Straight vertical line on price-qty diagram.](/notes/econ-perfectly-inelastic-demand.png)
+  - Example: when there are no substitutes.
+    - Some Medicine / treatments - e.g. insulin for diabetics.
+    - Example of elastic demand: viagra.
+  - What happens in case of supply shock?
+    - If supply decreases(?) There cannot be excess demand. The price increases. No change in qty.
+- Perfectly Elastic Demand.
+  - Straight horizontal line on price-qty diagram.
+    ![Straight horizontal line on price-qty diagram.](/notes/econ-perfectly-elastic-demand.png)
+  - Where consumers don't care about quantity, but only about price.
+  - Example: There are infinitely good substitutes.
+    - E.g. Candy. Orbit and Eclipse. McDonalds and Burger King.
+    - If price of Orbit increases people would buy Eclipse.
+    - If there is a supply shock, price could not change, only qty supplied would change.
+- Peek ahead about Producer theory:
+  - Revenue `R = Q * P` (`unit: $`)
+  - `(dR/R)/(dP/P) = (dR/dP) * (P/R) = Q(1+E)*P/R = (1+E)`
+  - If `Elasticity > -1`, producer benefits by raising price.
+    - But then why isn't price always 0 or infinity? coming up next lectures.
+- Difficult to measure elasticities because of causation/correlation problem.
