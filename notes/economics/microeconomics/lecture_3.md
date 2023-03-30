@@ -39,3 +39,20 @@ date: '2023-03-23'
     - (*) dimensional analysis check:  
         `dQ/dP = (change in no of candies demanded) / (change in price per candy) = candies / ($ per candy) = candies^2 / $`  
         `P/Q = (price per candy / candies demanded in total) = $ / candies^2`  
+  - Peek ahead about Producer theory:
+    - Revenue `R = Q * P` (`unit: $`)
+    - `dR/dP = d(Q*P)/dP = dQ/dP * P + Q dP/dP = E * Q + Q = Q * (1+E)` (`unit: $/($/candy) = candy`!)
+    - `(dR/R)/(dP/P) = (dR/dP) * (P/R) = Q(1+E)*P/R = (1+E)`
+    - If `Elasticity > -1`, producer benefits by raising price.
+      - Obviously, `Elasticity = -1` means raising 1% price = losing 1% qty = equilibrium (ignoring 2nd order terms)
+      - If Elasticity is more than that, that would mean raising 1% price = losing more than 1% qty = losing revenue overall => producer should lower prices!
+      - If Elasticity is less than that => producer should raise prices!
+      - But then why isn't price always 0 or infinity? coming up next lectures.
+  - How do we find elasticities?
+    - Main topic of Emperical Economics.
+    - Fundamental conundrum: Distinguishing correlation from causation.
+      - Example: Students who took SAT prep courses scored less on average.
+    - Imagine we have to estimate elasticity of demand.
+      - Need to make sure that it is a supply shift that is causing price and qty to shift and not demand shift.
+      - Need to make sure to measure the right slope.
+      ![Suuply and demand shifts](/notes/econ-supply-demand-shift.png)
