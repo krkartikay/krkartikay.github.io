@@ -69,3 +69,4 @@ date: '2023-03-23'
   - If `Elasticity > -1`, producer benefits by raising price.
     - But then why isn't price always 0 or infinity? coming up next lectures.
 - Difficult to measure elasticities because of causation/correlation problem.
+- However, this data may be important to determine govt. policies.
