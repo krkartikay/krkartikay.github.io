@@ -70,3 +70,22 @@ date: '2023-03-23'
     - But then why isn't price always 0 or infinity? coming up next lectures.
 - Difficult to measure elasticities because of causation/correlation problem.
 - However, this data may be important to determine govt. policies.
+
+### [L4. - Preferences and Utility](economics__microeconomics__lecture_4)
+
+- We assume all consumer behaviour comes from Utility Maximisation.
+- Three steps:
+  - Assumptions:
+    - **Completeness:** Can always pick which one I like more between A & B.
+    - **Transitivity:** If A > B, B > C then A > C.
+    - **Non-Satiation:** More is always better!
+  - Utility Functions.
+  - Budget constraints.
+- Indifference curves: ![indifference curves](/notes/econ-indifference-curves.png)
+- Utility: Mathematical representation of preferences.
+  - `U(x, y)` => value doesn't mean anything, only relative ranking does.
+  - We assume `d^2 U/d(X^2) <= 0` (*diminishing marginal utility*)
+- Link between Utility and Preference maps?
+  - Marginal rate of substitution.
+    - `U(x, y) = 0` => `∂U/∂x dx + ∂U/∂y dy = 0` => `dy/dx = -(∂U/∂x)/(∂U/∂y)`
+    - We always have **diminishing marginal rate of substitution.**
