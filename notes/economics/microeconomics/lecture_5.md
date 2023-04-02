@@ -5,7 +5,7 @@ date: '2023-04-01'
 
 ## MIT OCW 14.01SC L5 - Budget Constraints
 
-[MIT OCW 14.01SC - Lec 4 (Youtube)](https://www.youtube.com/watch?v=TIWE0DaOlzU&list=PL61533C166E8B0028&index=6)
+[MIT OCW 14.01SC - Lec 5 (Youtube)](https://www.youtube.com/watch?v=TIWE0DaOlzU&list=PL61533C166E8B0028&index=5)
 
 
 - Assuming for now (till 3rd lecture from the end) that income = budget. (No savings.)
