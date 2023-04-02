@@ -3,7 +3,7 @@ title: 'Lecture 4'
 date: '2023-04-01'
 ---
 
-## MIT OCW 14.01SC L4 - Elasticity
+## MIT OCW 14.01SC L4 - Preferences and Utility
 
 [MIT OCW 14.01SC - Lec 4 (Youtube)](https://www.youtube.com/watch?v=9kH0x7V_0Ig&list=PL61533C166E8B0028&index=4)
 

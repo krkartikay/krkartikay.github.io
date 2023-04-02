@@ -89,3 +89,26 @@ date: '2023-03-23'
   - Marginal rate of substitution.
     - `U(x, y) = 0` => `∂U/∂x dx + ∂U/∂y dy = 0` => `dy/dx = -(∂U/∂x)/(∂U/∂y)`
     - We always have **diminishing marginal rate of substitution.**
+
+### [L5. - Budget Constraints](economics__microeconomics__lecture_5)
+
+- Assuming for now that income = budget. (No savings.)
+  - Good enough assumption for typical Americans.
+- Budget constraint: Straight line on graph (`y = Sum (P_i * X_i)`)
+- Slope of the line will be (-ve of price ratio) (`-P_1/P_2`)
+  - This slope is called **Marginal Rate of Transformation**
+- Opportunity Cost
+  - Oppertunity cost is the value of the forgone alternative.
+- Maximising Utility subject to Budget Constraint
+  ![Indifference curves and budget line](/notes/econ-budget-and-indifference-curves.png)
+  - Maximising Utility is equivalent to choosing furthest out indifference curve on the budget line.
+  - Indifference curve will be **tangent** to the budget constraint!
+  - The slope of the indifference curve = slope of the budget constraint!
+  - `Marginal rate of substitution = Marginal rate of transformation`!
+  - `- (∂U/∂x_1) / (∂U/∂x_2) = - P_1 / P_2`
+  - `(Marginal) Benefit = (Marginal) Costs`
+  - `(∂U/∂x_1)/P_1 = (∂U/∂x_2)/P_2`
+  - If this is not true, we can shift optimal point towards where we have more benefit!
+  - Corner solutions possible where the slopes will not be equal!
+- Government can affect consumption of goods through taxation.
+  - Or it can also use psychology to affect consumption. (Called **Nudge** in behavioural economics. Check out book called Nudge.)
