@@ -73,7 +73,7 @@ export default function Layout({ allNotesIndex, note_id, children }: PropsWithCh
         </div>
       </aside>
       {/* Main Content */}
-      <main className='md:w-3/4'>
+      <main className='md:w-3/4 border-l-2 dark:border-l-stone-900 border-l-stone-50'>
         <div className='p-8 md:p-16'>
             {children}
         </div>
