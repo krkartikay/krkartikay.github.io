@@ -19,7 +19,7 @@ export default function Home({ allNotesIndex }: { allNotesIndex: NotesIndex }) {
       <Head>
         <title>krkartikay&apos;s notes</title>
       </Head>
-      <div className='prose prose-stone'>
+      <div className='prose prose-stone dark:prose-invert'>
         <h1>Hi!</h1>
         <h2>I&apos;m Kartikay.</h2>
         <p>

@@ -33,13 +33,13 @@ export default function NotePage({ note_id, noteData, allNotesIndex }: { note_id
         <title>{noteData.metadata.title ? noteData.metadata.title : note_id.replace(/__/g, " / ")}</title>
       </Head>
       <br />
-      <h1 className='text-4xl'>{noteData.metadata.title}</h1>
+      <h1 className='text-4xl dark:text-white'>{noteData.metadata.title}</h1>
       {
         noteData.metadata.date ?
-          <p className='text-stone-400'>{noteData.metadata.date}</p>
+          <p className='text-stone-400 dark:text-stone-300'>{noteData.metadata.date}</p>
           : <br/>
       }
-      <div className='prose prose-stone'>
+      <div className='prose prose-stone dark:prose-invert'>
         <div dangerouslySetInnerHTML={{ __html: noteData.content }} />
       </div>
     </Layout>
