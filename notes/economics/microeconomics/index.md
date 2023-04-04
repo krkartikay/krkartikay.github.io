@@ -112,3 +112,6 @@ date: '2023-03-23'
   - Corner solutions possible where the slopes will not be equal!
 - Government can affect consumption of goods through taxation.
   - Or it can also use psychology to affect consumption. (Called **Nudge** in behavioural economics. Check out book called Nudge.)
+
+### [L6. - Deriving Demand Curves](economics__microeconomics__lecture_6)
+
