@@ -9,6 +9,8 @@ date: '2023-04-06'
 
 1. [The Distress of Arjuna](/notes/book%20notes__the%20bhagvad%20gita__chapter_1)
 
+2. [Samkhya Yoga](/notes/book%20notes__the%20bhagvad%20gita__chapter_2)
+
 ----------------------------------------------
 
 ## Notes / Summary
@@ -46,3 +48,23 @@ date: '2023-04-06'
 15. *Vishaada*: Depression. The Chapter ends in dejection and sorrow and this is also called *Yoga* as this darkness of the soul is an essential step in the progress to spiritual life. Most of us go through life without facing the ultimate questions. It is in rare crises, when our ambitions lie in ruins at our feet, when we realize in remorse and agony the sad mess we have made of our lives, when we cry out 'Why are we here?' 'What does all this mean and where do we go from here?' 'My God, My God, why hast thou forsaken me?'
 
 16. Arjuna passes through a great spiritual tension. When he detaches himself from his social obligations and asks why he should carry out the duty expected of him by society, he gets behind his socialized self and has full awareness of himself as an individual, alone and isolaed. He faces the world as a stranger thrown into a threatening chaos. The new freedom creates a deep feeling of anxiety, aloneness, doubt and insecurity. If he is to function successfully, these feelings must be overcome.
+
+### Samkhya Yoga
+
+1. *niscitam*: for certain; Arjuna is driven not only by despair, anxiety and doubt but also by an ardent wish for certainity.
+
+2. To realise one's unreason is to step towards one's development to reason. The consciousness of imperfection indicates that the soul is alive. So long as it is alive, it can improve even as a living body can heal, if it is hurt or cut to a point. The human being is led to a higher condition through a crisis of contrition.
+
+3. It is the general experience of seekers that they are assailed by doubts and difficulties, even when they are on the threshold of light. The light as it begins to shine in any soul provokes the darkness to resist it. Arjuna faces difficulties, outward and inward, such as the resistance of relations and friends, doubts and fears, passions and desires. They must all be laid on the altar and consumed in the fire of wisdom. The struggle with darkness will continue until the light fills one's whole being.
+
+4. *na yotsya*: 'I will not fight.' Arjuna, without waiting for the advice of the teacher, seems to have made up his mind. While he asks the teacher to advise him, his mind is not open. The task of the teacher becomes more difficult.
+
+5. *govinda*: The omniscience of the teacher is indicated by this word.
+
+6. *tusnim babhuva*: became silent. The voice of truth can be heard only in silence.
+
+7. The smile indicates that [Krishna] saw throught Arjuna's attempt at rationalization or what is now known as wishful thinking. The attitude of the saviour God who knows all the sins and sorrows of suffering humanity is one of tender pity and wistful understanding.
+
+8. Wise men do not grieve for the dead or the living.
+
+9. 
