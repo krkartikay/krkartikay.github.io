@@ -1,8 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
+import {rehype} from 'rehype';
+import rehypeHighlight from 'rehype-highlight';
 import html from 'remark-html';
 
 const notesDirectory = path.join(process.cwd(), 'notes');
@@ -79,9 +82,11 @@ export async function getNoteData(note_id: string) : Promise<Note> {
     const metadata = matterResult.data as NotesMetaData;
   
     // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-    .use(html)
+    const processedContent = await rehype()
+    .use(remarkParse)
+    .use(remarkRehype)
     .use(remarkGfm)
+    .use(rehypeHighlight)
     .process(matterResult.content);
     const content = processedContent.toString();
     

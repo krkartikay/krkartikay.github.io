@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import 'highlight.js/styles/a11y-dark.css';
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
