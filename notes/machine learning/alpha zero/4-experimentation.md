@@ -168,6 +168,8 @@ loss_observer.plot(['train_loss', 'test_loss'])
 loss_observer.write_csv()
 ```
 
+(Link to code so far at [commit `09820da`](https://github.com/krkartikay/chess-sl/tree/09820da5afdac68cbdd3cbefe0a449cf81dccce3).)
+
 Training Output:
 ```
 (torch) krkartikay@KartikayLegion:~/code/chess-sl$ time python train.py 
@@ -191,8 +193,6 @@ sys     0m1.442
 
 `results/loss.png` and `results/loss.csv` were created successfully.
 
-`loss.png`: ![loss plot](/notes/loss-plot-1.png)
-
 `loss.csv`:
 ```
 train_loss,test_loss
@@ -202,4 +202,156 @@ train_loss,test_loss
 ...
 ```
 
-(Link to code so far at [commit `6407403`](https://github.com/krkartikay/chess-sl/tree/6407403ea4519041087cd44952b7f165de0917d4).)
+`loss.png`: ![loss plot](/notes/loss-plot-1.png)
+
+
+### Experimentation framework
+
+We need to optimise the neural net further! I think the loss of ~0.1 we're
+getting now is still too high. We could bring it down further by tweaking
+hyperparams and perhaps model architecture but let's develop a proper
+framework first to run experiments.
+
+I want to be able to do something like this:
+
+```py
+----------------------------------------------------------------------
+config.py:
+
+BATCH_SIZE = Config(default=128, values=[64, 128, 256, 512])
+NUM_EPOCHS = Config(default=100, dev=10)
+LEARNING_RATE = Config(default=0.1, values=[0.01, 0.03, 0.1, 0.3, 1, 3, 10])
+----------------------------------------------------------------------
+main.py:
+
+def run_training():
+    train_model()
+
+run_experiment(variables=[BATCH_SIZE, LEARNING_RATE],
+               function=run_training,
+               time_limit="5 mins")
+
+----------------------------------------------------------------------
+train.py:
+
+from config import NUM_EPOCHS, LEARNING_RATE, BATCH_SIZE
+
+def train_model():
+    ...
+    optim = SGD(model.parameters(), learning_rate=LEARNING_RATE.get())
+    
+    for epoch in range(NUM_EPOCHS.get()):
+        ...
+
+----------------------------------------------------------------------
+```
+
+That is, I specify all possible values of my hyperparameters and
+`run_experiment` basically tries out all the possible combinations of the
+variables I specify and stores all the results. So that I could see what the
+effect of each variable is on the training, and also find out the optimal values
+of hyperparameters which are giving me the best loss. I also want it to have a
+`dev` mode where it runs experiments on a smaller scale which I can use to test
+my code before doing a full training run.
+
+Okay... implemented this... here's some of the relevant parts of the code:
+
+```py
+class Experiment:
+    def __init__(self, variables=[], dev_mode=False):
+        self.variables: List[Config] = variables
+        self.dev_mode: bool = dev_mode
+        ...
+        self.run_number: int = 0
+        self.selected_values: Dict[Config, Any] = {}
+        self.all_configs_results: Dict[str, Any] = {}
+        for config in ALL_CONFIGS:
+            config.expt = self
+    
+    def get_config(self, config):
+        if config in self.selected_values:
+            return self.selected_values[config]
+        elif self.dev_mode:
+            return config.dev
+        else:
+            return config.default
+
+    def run_experiment(self,
+                       function=None,
+                       time_limit: int = 0):
+        value_combinations = itertools.product(
+            *[v.values for v in self.variables])
+        for values in value_combinations:
+            self.run_experiment_with_values(function, values)
+
+    def run_experiment_with_values(self, function, values):
+        self.selected_values = {
+            self.variables[i].name: values[i]
+            for i in range(len(self.variables))}
+        # run_experiment will run this function with selected values of
+        # variables
+        self.run_number += 1
+        print()
+        print("===================================================")
+        print(f"Experiment run {self.run_number}")
+        print("---------------------------------------------------")
+        print(f"Config for this run:\n{self.selected_values}")
+        print("===================================================")
+        start_time = time.time()
+        results = function()
+        end_time = time.time()
+        time_taken = end_time - start_time
+        print("===================================================")
+        print(f"Run finished in {time_taken:3.2f}sec.")
+        print("===================================================")
+        print()
+        self.all_configs_results.append({'run_num': self.run_number})
+        for key, value in self.selected_values.items():
+            self.all_configs_results[-1][key] = value
+        for key, value in results.items():
+            self.all_configs_results[-1][key] = value
+        self.all_configs_results[-1]['running_time'] = time_taken
+        for obs in ALL_OBSERVERS:
+            obs.set_path(path=self.results_path,
+                         suffix=f"{self.run_number:03d}")
+            obs.plot()
+            obs.write_csv()
+        self.save_results()
+```
+
+Link to the full code at [commit `1547c2a`](https://github.com/krkartikay/chess-sl/tree/1547c2a2d19a4b557eb044688467daca2c57c12b).
+
+It's not really the best code I've written... I'm sure the design isn't as good
+as it could have been... but at least it works.
+
+Here's what the results look like:
+
+![experiment results csv and loss graph](/notes/experiment-results-1.png)
+
+
+### Analysing the results
+
+Loading up the `results.csv` in excel and applying conditional formatting for
+easier visualisation, here's what I get:
+
+![experiment results spreadsheet](/notes/experiment-results-2.png)
+
+What're the main conclusions we can draw from this data? The main things I can
+notice are:
+
+- Lower batch sizes take longer to compute (obvious)
+- Smaller batch sizes train faster (lower loss even with low LR)
+- Larger batch sizes requiring higher LR to converge (gradient competition?)
+- Theoretically I would've guessed lower batch sizes to overfit more easily,
+   and it kinda looks like it's going in that direction in run #6 & #7, train loss
+   becoming slightly lower than test loss... (although I need to run it for
+   more epochs to confirm this...)
+- Conversely larger batch sizes should've generalised a bit more (run #20?)
+- Final loss is around ~0.1-0.09 in all cases.
+
+That's it for now. Next time we can try:
+
+- Improve neural net architecture: adding conv layers etc.
+- Evaluate the model by making it play games?
+- More training data
+- Visualisations...
