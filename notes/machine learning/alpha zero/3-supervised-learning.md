@@ -69,6 +69,11 @@ I'm going to use +1 for the white pieces and -1 for the black pieces.
 I'm also going to add another plane which is entirely +1 or -1 denoting whose
 turn it is currently.
 
+This is what the starting board is supposed to look like, as a tensor (White = +1
+Black = -1, Gray = 0).
+
+![starting position tensor](/notes/start-position.png)
+
 Here's the code:
 
 [chess_utils.py](https://github.com/krkartikay/chess-sl/blob/main/chess_utils.py)
